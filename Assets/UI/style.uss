@@ -1,0 +1,14 @@
+:root {
+}
+
+.unity-progress-bar {
+    color: rgb(255, 255, 255);
+}
+
+.unity-progress-bar__background {
+    background-color: rgb(21, 19, 29);
+}
+
+.unity-progress-bar__progress {
+    background-color: rgb(255, 0, 0);
+}
