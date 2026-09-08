@@ -18,6 +18,5 @@ public class Logic : MonoBehaviour
     void Awake()
     {
         _player = FindAnyObjectByType<Player>();
-        Debug.Log($"Player: {_player}");
     }
 }
