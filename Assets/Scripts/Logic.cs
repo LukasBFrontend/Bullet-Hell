@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Logic : MonoBehaviour
@@ -11,6 +13,33 @@ public class Logic : MonoBehaviour
         private set
         {
             _player = value;
+        }
+    }
+    public static Vector2 PlayerAimDirection
+    {
+        get 
+        {
+            List<Enemy> enemies = FindObjectsByType<Enemy>(FindObjectsInactive.Exclude).ToList();
+            Vector3 playerPosition = _player.transform.position;
+
+            if (enemies.Count == 0)
+            {
+                return Vector2.zero;
+            }
+
+            enemies.Sort((enemy, prevEnemy) =>
+            {
+                return Vector2.Distance
+                (
+                    enemy.transform.position, playerPosition) < Vector2.Distance(prevEnemy.transform.position, playerPosition
+                ) 
+                ? -1 
+                : 1;
+            });
+            
+            Enemy closestEnemy = enemies[0];
+
+            return (closestEnemy.transform.position - playerPosition).normalized;
         }
     }
 

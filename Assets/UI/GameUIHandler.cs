@@ -32,6 +32,5 @@ public class GameUIHandler : MonoBehaviour {
         _expBar.value = currentExp;
         _expBar.highValue = maxExp;
         _expBar.title = $"Lvl: {lvl}";
-        Debug.Log($"Exp: {currentExp} Required Exp: {maxExp} Lvl: {lvl}");
     }
 }

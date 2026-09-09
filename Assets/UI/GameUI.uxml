@@ -1,5 +1,5 @@
 <ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/UI/style.uss?fileID=7433441132597879392&amp;guid=d061f6063ca2fab4d84bfa2407418e4e&amp;type=3#style"/>
-    <ui:ProgressBar value="25" title="25/100" name="HealthBar"/>
-    <ui:ProgressBar value="0" title="1" name="ExpBar"/>
+    <ui:ProgressBar value="100" title="100/100" name="HealthBar"/>
+    <ui:ProgressBar value="100" title="Lvl 1" name="ExpBar"/>
 </ui:UXML>
