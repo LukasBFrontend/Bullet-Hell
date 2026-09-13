@@ -2,12 +2,12 @@ using UnityEngine;
 
 public class WeaponTargetManager : MonoBehaviour
 {
-    public WeaponScriptableObject Weapon 
-    { 
-        get { return _weapon; } 
+    public WeaponScriptableObject Weapon
+    {
+        get { return _weapon; }
         set { _weapon = value; }
     }
-    WeaponScriptableObject _weapon;
+    [SerializeField] WeaponScriptableObject _weapon;
 
     void Update()
     {
