@@ -19,7 +19,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4294967295
   attackConfig:
-    baseDamage: 1
+    baseDamage: 100
     baseCooldown: 2
     baseProjectileCount: 1
     duration: 1
