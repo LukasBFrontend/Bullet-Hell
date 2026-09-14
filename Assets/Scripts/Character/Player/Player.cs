@@ -10,6 +10,11 @@ public class Player : Character
     int _lvl = 1;
     int _exp = 0;
 
+    void Start()
+    {
+        MaxHealth = Health;
+    }
+
     void LvlUp()
     {
         _lvl++;
@@ -38,17 +43,8 @@ public class Player : Character
         OnExpChanged.Invoke(_exp, requiredExp, _lvl);
     }
 
-    void Start()
+    public override void Die()
     {
-        MaxHealth = Health;
-        OnDeath = () =>
-        {
-            SceneManager.LoadScene("Main");
-        };
-    }
-
-    void Update()
-    {
-        
+        SceneManager.LoadScene("Main");
     }
 }

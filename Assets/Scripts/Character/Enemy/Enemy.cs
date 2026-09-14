@@ -10,10 +10,6 @@ public class Enemy : Character
     void Awake()
     {
         MaxHealth = Health;
-        OnDeath = () =>
-        {
-            Destroy(gameObject);
-        };
     }
 
     IEnumerator AttackCooldown()
@@ -32,5 +28,10 @@ public class Enemy : Character
         player.TakeDamage(contactDamage);
 
         StartCoroutine(AttackCooldown());
+    }
+
+    public override void Die()
+    {
+        Destroy(gameObject);
     }
 }

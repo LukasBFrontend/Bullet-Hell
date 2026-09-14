@@ -1,8 +1,6 @@
 using UnityEngine;
 using UnityEngine.Events;
-
-public delegate void OnDeath();
-public class Character : MonoBehaviour
+public abstract class Character : MonoBehaviour
 {
     [Range(0, 100)]
     [SerializeField] int health;
@@ -10,7 +8,6 @@ public class Character : MonoBehaviour
     [SerializeField] Collider2D collider;
     [HideInInspector] public UnityEvent<int, int> OnHealthChanged;
     int _maxHealth;
-    OnDeath _onDeath;
     public int Health
     {
         get { return health; }
@@ -29,11 +26,6 @@ public class Character : MonoBehaviour
         get { return _maxHealth; }
         protected set { _maxHealth = value; }
     }
-    protected OnDeath OnDeath
-    {
-        get { return _onDeath; }
-        set { _onDeath = value; }
-    }
 
     public void TakeDamage(int amount)
     {
@@ -50,8 +42,5 @@ public class Character : MonoBehaviour
     {
         health = Mathf.Clamp(health + amount, 0, _maxHealth);
     }
-    public void Die()
-    {
-        OnDeath();
-    }
+    public abstract void Die();
 }
