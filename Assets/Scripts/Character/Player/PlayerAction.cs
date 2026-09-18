@@ -7,7 +7,7 @@ public class PlayerAction : MonoBehaviour
 
     void Update()
     {
-        foreach(WeaponScriptableObject weapon in weaponSelector.ActiveWeapons)
+        foreach(WeaponData weapon in weaponSelector.ActiveWeapons)
         {
             weapon.Attack();
         }

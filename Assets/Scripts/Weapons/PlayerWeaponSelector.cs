@@ -5,11 +5,11 @@ using UnityEngine;
 public class PlayerWeaponSelector : MonoBehaviour
 {
     [SerializeField] Transform weaponParent;
-    [SerializeField] List<WeaponScriptableObject> weapons;
+    [SerializeField] List<WeaponData> weapons;
     [Space]
     [Header("Runtime Filled")]
-    [SerializeField] List<WeaponScriptableObject> activeWeapons;
-    public List<WeaponScriptableObject> ActiveWeapons { get { return activeWeapons; }}
+    [SerializeField] List<WeaponData> activeWeapons;
+    public List<WeaponData> ActiveWeapons => activeWeapons;
 
     void Start()
     {
@@ -21,9 +21,9 @@ public class PlayerWeaponSelector : MonoBehaviour
             return;
         }
 
-        foreach(WeaponScriptableObject weapon in activeWeapons)
+        foreach(WeaponData weapon in activeWeapons)
         {
-            weapon.Unlock(weaponParent, this);
+            weapon.Spawn(weaponParent, this);
         }
     }
 }

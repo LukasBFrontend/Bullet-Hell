@@ -10,24 +10,24 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4d8c51e2ddab29c42814cb06ce7f69a3, type: 3}
-  m_Name: Sword Data
+  m_Name: SwordData
   m_EditorClassIdentifier: Assembly-CSharp::WeaponData
-  name: Sword
+  weaponName: Sword
   weaponType: 0
   sprite: {fileID: 21300000, guid: 1741e54e54680b343af3b727d7f7fa1a, type: 3}
   hitMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 0
   attackConfig:
     baseDamage: 100
-    baseCooldown: 2
-    baseProjectileCount: 1
-    duration: 1
+    baseCooldown: 0.5
+    baseProjectileCount: 0
+    duration: 0
     scalingConfig:
-      damageIncrease: 1
-      cooldownDecreaseFactor: 0.5
+      damageIncrease: 0
+      cooldownDecreaseFactor: 0
   projectileWeaponDependencies:
     ProjectilePrefab: {fileID: 0}
     targetingMode: 0
   areaWeaponDependencies:
-    AreaPrefab: {fileID: 745550897710229529, guid: 278417049b7da924fa7d7ef32a09f95b, type: 3}
+    AreaPrefab: {fileID: 0}

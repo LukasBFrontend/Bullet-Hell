@@ -2,17 +2,12 @@ using UnityEngine;
 
 public class WeaponTargetManager : MonoBehaviour
 {
-    public WeaponScriptableObject Weapon
-    {
-        get { return _weapon; }
-        set { _weapon = value; }
-    }
-    [SerializeField] WeaponScriptableObject _weapon;
+    [SerializeField] WeaponData _weapon;
+    public WeaponData Weapon => _weapon;
 
     void Update()
     {
-        Debug.Log(Logic.PlayerAimDirection);
-        transform.rotation = Quaternion.Euler(new (0, 0, Mathf.Rad2Deg * Mathf.Atan2(Logic.PlayerAimDirection.y, Logic.PlayerAimDirection.x )));
+        transform.rotation = Quaternion.Euler(new (0, 0, Mathf.Rad2Deg * Mathf.Atan2(Logic.ClosestEnemyDir().y, Logic.ClosestEnemyDir().x )));
     }
 
     void OnTriggerEnter2D(Collider2D other)
@@ -33,5 +28,10 @@ public class WeaponTargetManager : MonoBehaviour
         }
 
         _weapon.ExitRange(enemy);
+    }
+
+    public void Initialize(WeaponData weapon)
+    {
+        _weapon = weapon;
     }
 }

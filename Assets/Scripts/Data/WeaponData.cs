@@ -44,10 +44,10 @@ struct AttackConfig
     [Range(.1f, 2f)]
     [SerializeField] float duration;
     [SerializeField] AttackScaling scalingConfig;
-    public float Cooldown { get { return baseCooldown; } }
-    public int Damage { get { return baseDamage; } }
-    public float Duration { get { return duration; } }
-    public int ProjectileCount { get { return baseProjectileCount; } }
+    public float Cooldown => baseCooldown;
+    public int Damage => baseDamage;
+    public float Duration => duration;
+    public int ProjectileCount => baseProjectileCount;
 
 }
 public enum WeaponType
@@ -57,9 +57,9 @@ public enum WeaponType
 }
 
 [CreateAssetMenu(fileName = "WeaponData", menuName = "Weapons/WeaponData")]
-public class WeaponScriptableObject : ScriptableObject
+public class WeaponData : ScriptableObject
 {
-    [SerializeField] string name;
+    [SerializeField] string weaponName;
     [SerializeField] WeaponType weaponType;
     [SerializeField] Sprite sprite;
     [SerializeField] LayerMask hitMask;
@@ -71,6 +71,60 @@ public class WeaponScriptableObject : ScriptableObject
     GameObject _weaponModel;
     List<Enemy> _targetsInRange;
     WeaponTargetManager _weaponTargetManager;
+
+    /// <summary>
+    /// Instatiates the corresponding prefab and initializes the corresponding WeaponTargetManager component with the WeaponData.
+    /// </summary>
+    /// <param name="parent"></param>
+    /// <param name="activeMonoBehavior"></param>
+    public void Spawn(Transform parent, MonoBehaviour activeMonoBehavior)
+    {
+        this._activeMonoBehavior = activeMonoBehavior;
+        _lastAttackTime = 0;
+
+        if (weaponType == WeaponType.Area)
+        {
+            _weaponModel = Instantiate(areaWeaponDependencies.AreaPrefab);
+            _weaponModel.transform.SetParent(parent);
+            _weaponModel.transform.localPosition = Vector2.zero;
+            _weaponModel.transform.localRotation = Quaternion.Euler(Vector3.zero);
+        }
+        else if (weaponType == WeaponType.Projectile)
+        {
+            _weaponModel = Instantiate(projectileWeaponDependencies.ProjectilePrefab);
+            _weaponModel.transform.SetParent(parent);
+            _weaponModel.transform.localPosition = Vector2.zero;
+            _weaponModel.transform.localRotation = Quaternion.Euler(Vector3.zero);
+        
+        }
+        _weaponTargetManager = _weaponModel.GetComponent<WeaponTargetManager>();
+        _weaponTargetManager.Initialize(this);
+    }
+
+    /// <summary>
+    /// Automatically attack all targets inside the weapon range if the weapon is not on cooldown. Meant to be used inside the Update method.
+    /// </summary>
+    public void Attack()
+    {
+        if (Time.time <= attackConfig.Cooldown + _lastAttackTime)
+        {
+            return;
+        }
+
+        _lastAttackTime = Time.time;
+        _activeMonoBehavior.StartCoroutine(AttackRoutine(attackConfig.Duration, attackConfig.ProjectileCount));
+    }
+
+    public void EnterRange(Enemy enemy)
+    {
+        _targetsInRange.Add(enemy);
+    }
+    
+    public void ExitRange(Enemy enemy)
+    {
+        _targetsInRange.Remove(enemy);
+    }
+
     IEnumerator AttackRoutine(float duration, int projectileCount)
     {
         float elapsed = 0f;
@@ -94,25 +148,6 @@ public class WeaponScriptableObject : ScriptableObject
             elapsed += timestep;
         }
     }
-    public void Attack()
-    {
-        if (Time.time <= attackConfig.Cooldown + _lastAttackTime)
-        {
-            return;
-        }
-
-        _lastAttackTime = Time.time;
-        _activeMonoBehavior.StartCoroutine(AttackRoutine(attackConfig.Duration, attackConfig.ProjectileCount));
-    }
-
-    public void EnterRange(Enemy enemy)
-    {
-        _targetsInRange.Add(enemy);
-    }
-    public void ExitRange(Enemy enemy)
-    {
-        _targetsInRange.Remove(enemy);
-    }
 
     void Shoot(List<Enemy> enemies)
     {
@@ -126,29 +161,5 @@ public class WeaponScriptableObject : ScriptableObject
             enemy.TakeDamage(attackConfig.Damage);
             Debug.Log("Whack!");
         }
-    }
-
-    public void Unlock(Transform parent, MonoBehaviour activeMonoBehavior)
-    {
-        this._activeMonoBehavior = activeMonoBehavior;
-        _lastAttackTime = 0;
-
-        if (weaponType == WeaponType.Area)
-        {
-            _weaponModel = Instantiate(areaWeaponDependencies.AreaPrefab);
-            _weaponModel.transform.SetParent(parent);
-            _weaponModel.transform.localPosition = Vector2.zero;
-            _weaponModel.transform.localRotation = Quaternion.Euler(Vector3.zero);
-        }
-        else if (weaponType == WeaponType.Projectile)
-        {
-            _weaponModel = Instantiate(projectileWeaponDependencies.ProjectilePrefab);
-            _weaponModel.transform.SetParent(parent);
-            _weaponModel.transform.localPosition = Vector2.zero;
-            _weaponModel.transform.localRotation = Quaternion.Euler(Vector3.zero);
-        
-        }
-        _weaponTargetManager = _weaponModel.GetComponent<WeaponTargetManager>();
-        _weaponTargetManager.Weapon = this;
     }
 }

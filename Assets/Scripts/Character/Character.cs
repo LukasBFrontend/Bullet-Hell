@@ -8,25 +8,21 @@ public abstract class Character : MonoBehaviour
     [SerializeField] Collider2D collider;
     [HideInInspector] public UnityEvent<int, int> OnHealthChanged;
     int _maxHealth;
-    public int Health
+    public Rigidbody2D Rigidbody => rigidbody;
+    public Collider2D Collider => collider;
+    public int Health => health;
+    public int MaxHealth => _maxHealth;
+
+    public void Initialize()
     {
-        get { return health; }
-        set { health = value; }
-    }
-    public Rigidbody2D Rigidbody
-    {
-        get { return rigidbody; }
-    }
-    public Collider2D Collider
-    {
-        get { return collider; }
-    }
-    public int MaxHealth
-    {
-        get { return _maxHealth; }
-        protected set { _maxHealth = value; }
+        health = _maxHealth;
     }
 
+
+    /// <summary>
+    /// Subtracts amount from the character health. If it reaches zero, invokes Die().
+    /// </summary>
+    /// <param name="amount"></param>
     public void TakeDamage(int amount)
     {
         health -= amount;
@@ -38,9 +34,19 @@ public abstract class Character : MonoBehaviour
             Die();
         }
     }
+
+    /// <summary>
+    /// Adds amount to character health up to MaxHealth
+    /// </summary>
+    /// <param name="amount"></param>
     public void Heal(int amount)
     {
         health = Mathf.Clamp(health + amount, 0, _maxHealth);
+    }
+
+    public void ResetHealth()
+    {
+        health = _maxHealth;
     }
     public abstract void Die();
 }

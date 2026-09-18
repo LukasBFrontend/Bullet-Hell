@@ -6,12 +6,13 @@ public class BeeController : MonoBehaviour
     [Range(0.5f, 50f)]
     [SerializeField] float moveSpeed;
     Rigidbody2D _rigidbody;
+
     void Awake()
     {
         _rigidbody = enemy.Rigidbody;
     }
 
-    // Update is called once per frame
+
     void Update()
     {
         Vector2 _position = _rigidbody.position;

@@ -7,9 +7,10 @@ public class Enemy : Character
     [Range(1, 100)]
     [SerializeField] int contactDamage;
     bool _canAttack = true;
+    
     void Awake()
     {
-        MaxHealth = Health;
+        Initialize();
     }
 
     IEnumerator AttackCooldown()

@@ -5,14 +5,14 @@ using UnityEngine.SceneManagement;
 public class Player : Character
 {
     [HideInInspector] public UnityEvent<int, int, int> OnExpChanged;
-    public int Lvl { get { return _lvl; } set { _lvl = value; } }
-    public int Exp { get { return _exp;} }
+    public int Lvl => _lvl;
+    public int Exp => _exp;
     int _lvl = 1;
     int _exp = 0;
 
     void Start()
     {
-        MaxHealth = Health;
+        Initialize();
     }
 
     void LvlUp()
@@ -20,11 +20,20 @@ public class Player : Character
         _lvl++;
     }
 
+    /// <summary>
+    /// Calculates total exp required to lvl up from the current lvl to the next.
+    /// </summary>
+    /// <returns>The exp</returns>
     public int ExpToLvlUp()
     {
         return 100 + _lvl * 10;
     }
 
+
+    /// <summary>
+    /// Adds exp to the player exp and invokes LvlUp() if the updated exp is sufficient.
+    /// </summary>
+    /// <param name="amount"></param>
     public void GainExp(int amount)
     {
         _exp += amount;
