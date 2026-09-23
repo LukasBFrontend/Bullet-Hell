@@ -22,7 +22,7 @@ public enum TargetingMode
 struct AreaWeaponConfig
 {        
     [Tooltip("The prefab needs to have a Weapon Target Manager component")]
-    public GameObject AreaPrefab;
+    public GameObject areaPrefab;
 }
 [System.Serializable]
 struct ProjectileWeaponConfig
@@ -82,21 +82,15 @@ public class WeaponData : ScriptableObject
         this._activeMonoBehavior = activeMonoBehavior;
         _lastAttackTime = 0;
 
-        if (weaponType == WeaponType.Area)
-        {
-            _weaponModel = Instantiate(areaWeaponDependencies.AreaPrefab);
-            _weaponModel.transform.SetParent(parent);
-            _weaponModel.transform.localPosition = Vector2.zero;
-            _weaponModel.transform.localRotation = Quaternion.Euler(Vector3.zero);
-        }
-        else if (weaponType == WeaponType.Projectile)
-        {
-            _weaponModel = Instantiate(projectileWeaponDependencies.ProjectilePrefab);
-            _weaponModel.transform.SetParent(parent);
-            _weaponModel.transform.localPosition = Vector2.zero;
-            _weaponModel.transform.localRotation = Quaternion.Euler(Vector3.zero);
-        
-        }
+        _weaponModel = Instantiate( 
+            weaponType == WeaponType.Projectile 
+            ? projectileWeaponDependencies.ProjectilePrefab 
+            : areaWeaponDependencies.areaPrefab
+        );
+
+        _weaponModel.transform.SetParent(parent);
+        _weaponModel.transform.localPosition = Vector2.zero;
+        _weaponModel.transform.localRotation = Quaternion.Euler(Vector3.zero);
         _weaponTargetManager = _weaponModel.GetComponent<WeaponTargetManager>();
         _weaponTargetManager.Initialize(this);
     }
@@ -158,8 +152,7 @@ public class WeaponData : ScriptableObject
     {
         foreach (Enemy enemy in enemies)
         {
-            enemy.TakeDamage(attackConfig.Damage);
-            Debug.Log("Whack!");
+            enemy.Health.TakeDamage(attackConfig.Damage);
         }
     }
 }

@@ -8,17 +8,26 @@ public class GameUIHandler : MonoBehaviour {
 
     void Awake()
     {
-        _player = Logic.Player;
+        _player = GameUtils.Player;
         _healthBar = UIDoc.rootVisualElement.Q<ProgressBar>("HealthBar");
         _expBar = UIDoc.rootVisualElement.Q<ProgressBar>("ExpBar");
     }
 
-    private void Start() {
-        _player.OnHealthChanged.AddListener(UpdateHealthBar);
-        _player.OnExpChanged.AddListener(UpdateExpBar);
-
+    void Start() {
         UpdateExpBar(_player.Exp, _player.ExpToLvlUp(), _player.Lvl);
-        UpdateHealthBar(_player.Health, _player.MaxHealth);
+        UpdateHealthBar(_player.Health.Current, _player.Health.Max);
+    }
+
+    void OnEnable()
+    {
+        _player.Health.OnChanged.AddListener(UpdateHealthBar);
+        _player.OnExpChanged.AddListener(UpdateExpBar);
+    }
+
+    void OnDisable()
+    {
+        _player.Health.OnChanged.RemoveListener(UpdateHealthBar);
+        _player.OnExpChanged.RemoveListener(UpdateExpBar);
     }
 
     void UpdateHealthBar(int current, int max) {

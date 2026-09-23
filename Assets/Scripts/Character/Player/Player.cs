@@ -10,11 +10,6 @@ public class Player : Character
     int _lvl = 1;
     int _exp = 0;
 
-    void Start()
-    {
-        Initialize();
-    }
-
     void LvlUp()
     {
         _lvl++;

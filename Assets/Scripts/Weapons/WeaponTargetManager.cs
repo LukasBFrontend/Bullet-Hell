@@ -7,7 +7,7 @@ public class WeaponTargetManager : MonoBehaviour
 
     void Update()
     {
-        transform.rotation = Quaternion.Euler(new (0, 0, Mathf.Rad2Deg * Mathf.Atan2(Logic.ClosestEnemyDir().y, Logic.ClosestEnemyDir().x )));
+        transform.rotation = Quaternion.Euler(new (0, 0, Mathf.Rad2Deg * Mathf.Atan2(GameUtils.ClosestEnemyDir().y, GameUtils.ClosestEnemyDir().x )));
     }
 
     void OnTriggerEnter2D(Collider2D other)

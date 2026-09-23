@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4d8c51e2ddab29c42814cb06ce7f69a3, type: 3}
-  m_Name: SwordData
+  m_Name: Sword
   m_EditorClassIdentifier: Assembly-CSharp::WeaponData
   weaponName: Sword
   weaponType: 0
@@ -21,8 +21,8 @@ MonoBehaviour:
   attackConfig:
     baseDamage: 100
     baseCooldown: 0.5
-    baseProjectileCount: 0
-    duration: 0
+    baseProjectileCount: 1
+    duration: 0.1
     scalingConfig:
       damageIncrease: 0
       cooldownDecreaseFactor: 0
@@ -30,4 +30,4 @@ MonoBehaviour:
     ProjectilePrefab: {fileID: 0}
     targetingMode: 0
   areaWeaponDependencies:
-    AreaPrefab: {fileID: 0}
+    AreaPrefab: {fileID: 745550897710229529, guid: 278417049b7da924fa7d7ef32a09f95b, type: 3}

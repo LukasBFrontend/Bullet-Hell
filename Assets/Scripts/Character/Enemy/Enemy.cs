@@ -7,12 +7,6 @@ public class Enemy : Character
     [Range(1, 100)]
     [SerializeField] int contactDamage;
     bool _canAttack = true;
-    
-    void Awake()
-    {
-        Initialize();
-    }
-
     IEnumerator AttackCooldown()
     {
         _canAttack = false;
@@ -26,7 +20,7 @@ public class Enemy : Character
             return;
         }
 
-        player.TakeDamage(contactDamage);
+        player.Health.TakeDamage(contactDamage);
 
         StartCoroutine(AttackCooldown());
     }
