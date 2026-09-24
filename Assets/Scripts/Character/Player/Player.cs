@@ -4,8 +4,11 @@ using UnityEngine.SceneManagement;
 
 public class Player : Character
 {
+    [SerializeField] LevelScalingData levelScalingData;
+    public PlayerStats Stats => _stats;
     public int Lvl => _lvl;
     public int Exp => _exp;
+    PlayerStats _stats;
     int _lvl = 1;
     int _exp = 0;
 
@@ -49,5 +52,11 @@ public class Player : Character
     public override void Die()
     {
         SceneManager.LoadScene("Main");
+    }
+
+    void Awake()
+    {
+        _stats = new PlayerStats(levelScalingData);
+        _stats.LvlUpStat(StatName.Damage);
     }
 }

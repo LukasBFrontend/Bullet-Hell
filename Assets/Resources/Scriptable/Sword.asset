@@ -30,4 +30,4 @@ MonoBehaviour:
     ProjectilePrefab: {fileID: 0}
     targetingMode: 0
   areaWeaponDependencies:
-    AreaPrefab: {fileID: 745550897710229529, guid: 278417049b7da924fa7d7ef32a09f95b, type: 3}
+    areaPrefab: {fileID: 745550897710229529, guid: 278417049b7da924fa7d7ef32a09f95b, type: 3}

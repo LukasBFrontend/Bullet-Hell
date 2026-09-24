@@ -310,6 +310,7 @@ MonoBehaviour:
   rigidbody: {fileID: 47205272}
   collider: {fileID: 47205273}
   healthScript: {fileID: 47205280}
+  levelScalingData: {fileID: 11400000, guid: 1164aacee5771ff419c30695234e4922, type: 2}
 --- !u!114 &47205278
 MonoBehaviour:
   m_ObjectHideFlags: 0
