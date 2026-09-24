@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.Events;
+using System;
 
 [RequireComponent(typeof (Character))]
 public class Health : MonoBehaviour
@@ -8,7 +9,6 @@ public class Health : MonoBehaviour
     [SerializeField] int health;
     public int Current => health;
     public int Max => _maxHealth;
-    [HideInInspector] public UnityEvent<int, int> OnChanged;
     int _maxHealth;
     Character _character;
 
@@ -26,11 +26,15 @@ public class Health : MonoBehaviour
     {
         health -= amount;
         health = Mathf.Clamp(health, 0, _maxHealth);
-        OnChanged.Invoke(health, _maxHealth);
 
         if (health <= 0)
         {
             _character.Die();
+        }
+
+        if (_character is Player)
+        {
+            GameEvents.RaiseHealthChanged(health, _maxHealth);
         }
     }
 

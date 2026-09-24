@@ -8,7 +8,7 @@ public class GameUIHandler : MonoBehaviour {
 
     void Awake()
     {
-        _player = GameUtils.Player;
+        _player = GameStateManager.Instance.Player;
         _healthBar = UIDoc.rootVisualElement.Q<ProgressBar>("HealthBar");
         _expBar = UIDoc.rootVisualElement.Q<ProgressBar>("ExpBar");
     }
@@ -20,14 +20,14 @@ public class GameUIHandler : MonoBehaviour {
 
     void OnEnable()
     {
-        _player.Health.OnChanged.AddListener(UpdateHealthBar);
-        _player.OnExpChanged.AddListener(UpdateExpBar);
+        GameEvents.HealthChanged?.AddListener(UpdateHealthBar);
+        GameEvents.ExpChanged?.AddListener(UpdateExpBar);
     }
 
     void OnDisable()
     {
-        _player.Health.OnChanged.RemoveListener(UpdateHealthBar);
-        _player.OnExpChanged.RemoveListener(UpdateExpBar);
+        GameEvents.HealthChanged?.RemoveListener(UpdateHealthBar);
+        GameEvents.ExpChanged?.RemoveListener(UpdateExpBar);
     }
 
     void UpdateHealthBar(int current, int max) {

@@ -2,30 +2,15 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class GameUtils : MonoBehaviour
+public static class GameUtils
 {
-    /// <summary>
-    /// The active player instance.
-    /// </summary>
-    public static Player Player
-    {
-        get
-        {
-            return _player;
-        }
-        private set
-        {
-            _player = value;
-        }
-    }
-
     /// <summary>
     /// Calculates the unit direction from the closest enemy to the player by comparing between the player and the list of enemies.
     /// </summary>
-    public static Vector2 ClosestEnemyDir()
+    public static Vector2 ClosestEnemyToPlayerDir(Player player)
     {
-        List<Enemy> enemies = FindObjectsByType<Enemy>(FindObjectsInactive.Exclude).ToList();
-        Vector3 playerPosition = _player.transform.position;
+        List<Enemy> enemies = Object.FindObjectsByType<Enemy>(FindObjectsInactive.Exclude).ToList();
+        Vector3 playerPosition = player.transform.position;
 
         if (enemies.Count == 0)
         {
@@ -36,7 +21,7 @@ public class GameUtils : MonoBehaviour
         {
             return Vector2.Distance
             (
-                enemy.transform.position, playerPosition) < Vector2.Distance(prevEnemy.transform.position, playerPosition
+                enemy.Rigidbody.position, playerPosition) < Vector2.Distance(prevEnemy.Rigidbody.position, playerPosition
             ) 
             ? -1 
             : 1;
@@ -47,9 +32,13 @@ public class GameUtils : MonoBehaviour
         return (closestEnemy.transform.position - playerPosition).normalized;
     }
 
-    static Player _player;
-    void Awake()
+    /// <summary>
+    /// Calculates the unit direction from the player to the enemy.
+    /// </summary>
+    public static Vector2 PlayerToEnemyDir(Player player, Enemy enemy)
     {
-        _player = FindAnyObjectByType<Player>();
+        Vector2 position = enemy.Rigidbody.position;
+        Vector2 targetPosition = player.Rigidbody.position;
+        return (targetPosition - position).normalized;
     }
 }

@@ -1,3 +1,4 @@
+using Unity.VisualScripting.FullSerializer;
 using UnityEngine;
 
 [RequireComponent(typeof(Enemy))]
@@ -17,10 +18,8 @@ public class BeeController : MonoBehaviour
 
     void Update()
     {
-        Vector2 _position = _rigidbody.position;
-        Vector2 _targetPosition = GameUtils.Player.Rigidbody.position;
-        Vector2 _dir = (_targetPosition - _position).normalized;
+        Vector2 dir = GameUtils.PlayerToEnemyDir(GameStateManager.Instance.Player, _enemy);
 
-        _rigidbody.linearVelocity = _dir * moveSpeed;
+        _rigidbody.linearVelocity = dir * moveSpeed;
     }
 }

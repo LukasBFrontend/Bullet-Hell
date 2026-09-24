@@ -4,7 +4,6 @@ using UnityEngine.SceneManagement;
 
 public class Player : Character
 {
-    [HideInInspector] public UnityEvent<int, int, int> OnExpChanged;
     public int Lvl => _lvl;
     public int Exp => _exp;
     int _lvl = 1;
@@ -37,14 +36,14 @@ public class Player : Character
 
         if (_exp < requiredExp)
         {
-            OnExpChanged.Invoke(_exp, requiredExp, _lvl);
+            GameEvents.RaiseExpChanged(_exp, requiredExp, _lvl);
             return;
         }
         int leftover = _exp - requiredExp;
 
         LvlUp();
         _exp = leftover;
-        OnExpChanged.Invoke(_exp, requiredExp, _lvl);
+        GameEvents.RaiseExpChanged(_exp, requiredExp, _lvl);
     }
 
     public override void Die()
