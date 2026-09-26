@@ -7,9 +7,9 @@ public abstract class Character : MonoBehaviour
 {
     [SerializeField] Rigidbody2D rigidbody;
     [SerializeField] Collider2D collider;
-    [SerializeField] Health healthScript;
+    [SerializeField] Health health;
     public Rigidbody2D Rigidbody => rigidbody;
     public Collider2D Collider => collider;
-    public Health Health => healthScript;
+    public Health Health => health;
     public abstract void Die();
 }

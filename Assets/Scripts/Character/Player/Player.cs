@@ -1,21 +1,18 @@
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 
+/// <summary>
+/// The main player component.
+/// </summary>
+[RequireComponent(typeof(Stats))]
 public class Player : Character
 {
-    [SerializeField] LevelScalingData levelScalingData;
-    public PlayerStats Stats => _stats;
+    [SerializeField] Stats stats;
+    public Stats Stats => stats;
     public int Lvl => _lvl;
     public int Exp => _exp;
-    PlayerStats _stats;
     int _lvl = 1;
     int _exp = 0;
-
-    void LvlUp()
-    {
-        _lvl++;
-    }
 
     /// <summary>
     /// Calculates total exp required to lvl up from the current lvl to the next.
@@ -25,7 +22,6 @@ public class Player : Character
     {
         return 100 + _lvl * 10;
     }
-
 
     /// <summary>
     /// Adds exp to the player exp and invokes LvlUp() if the updated exp is sufficient.
@@ -54,9 +50,8 @@ public class Player : Character
         SceneManager.LoadScene("Main");
     }
 
-    void Awake()
+    private void LvlUp()
     {
-        _stats = new PlayerStats(levelScalingData);
-        _stats.LvlUpStat(StatName.Damage);
+        _lvl++;
     }
 }

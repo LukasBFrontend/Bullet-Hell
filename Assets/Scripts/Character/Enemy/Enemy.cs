@@ -1,8 +1,9 @@
 using UnityEngine;
 using System.Collections;
 
-public class Enemy : Character
+public sealed class Enemy : Character
 {
+    private static WaitForSeconds _waitForSeconds_5 = new(.5f);
     [Tooltip("How much damage does the enemy deal on player collision?")]
     [Range(1, 100)]
     [SerializeField] int contactDamage;
@@ -10,7 +11,7 @@ public class Enemy : Character
     IEnumerator AttackCooldown()
     {
         _canAttack = false;
-        yield return new WaitForSeconds(.5f);
+        yield return _waitForSeconds_5;
         _canAttack = true;
     }
     void OnCollisionStay2D(Collision2D other)
