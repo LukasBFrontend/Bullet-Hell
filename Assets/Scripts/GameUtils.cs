@@ -9,6 +9,11 @@ public static class GameUtils
     /// </summary>
     public static Vector2 ClosestEnemyToPlayerDir(Player player)
     {
+        if (player == null)
+        {
+            return Vector2.zero;
+        }
+
         List<Enemy> enemies = Object.FindObjectsByType<Enemy>(FindObjectsInactive.Exclude).ToList();
         Vector3 playerPosition = player.transform.position;
 
@@ -22,11 +27,11 @@ public static class GameUtils
             return Vector2.Distance
             (
                 enemy.Rigidbody.position, playerPosition) < Vector2.Distance(prevEnemy.Rigidbody.position, playerPosition
-            ) 
-            ? -1 
+            )
+            ? -1
             : 1;
         });
-        
+
         Enemy closestEnemy = enemies[0];
 
         return (closestEnemy.transform.position - playerPosition).normalized;
@@ -37,6 +42,11 @@ public static class GameUtils
     /// </summary>
     public static Vector2 PlayerToEnemyDir(Player player, Enemy enemy)
     {
+        if (player == null)
+        {
+            return Vector2.zero;
+        }
+
         Vector2 position = enemy.Rigidbody.position;
         Vector2 targetPosition = player.Rigidbody.position;
         return (targetPosition - position).normalized;

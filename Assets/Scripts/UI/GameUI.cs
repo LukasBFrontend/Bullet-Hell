@@ -6,29 +6,35 @@ public class GameUIHandler : MonoBehaviour {
     ProgressBar _healthBar, _expBar;
     Player _player;
 
-    void Awake()
-    {
-        VisualElement root = panelRenderer.visualTreeAsset.Instantiate();
-        _player = GameStateManager.Instance.Player;
-        _healthBar = root.Q<ProgressBar>("HealthBar");
-        _expBar = root.Q<ProgressBar>("ExpBar");
-    }
-
-    void Start() {
-        UpdateExpBar(_player.Exp, _player.ExpToLvlUp(), _player.Lvl);
-        UpdateHealthBar(_player.Health.Current, _player.Health.Max);
-    }
-
     void OnEnable()
     {
-        GameEvents.HealthChanged?.AddListener(UpdateHealthBar);
-        GameEvents.ExpChanged?.AddListener(UpdateExpBar);
+        panelRenderer.RegisterUIReloadCallback(OnUIReload);
+        GameEvents.HealthChanged.AddListener(UpdateHealthBar);
+        GameEvents.ExpChanged.AddListener(UpdateExpBar);
+        GameEvents.LvlUpEvent.AddListener(UpdateLvlText);
     }
 
     void OnDisable()
     {
-        GameEvents.HealthChanged?.RemoveListener(UpdateHealthBar);
-        GameEvents.ExpChanged?.RemoveListener(UpdateExpBar);
+        panelRenderer.UnregisterUIReloadCallback(OnUIReload);
+        GameEvents.HealthChanged.RemoveListener(UpdateHealthBar);
+        GameEvents.ExpChanged.RemoveListener(UpdateExpBar);
+        GameEvents.LvlUpEvent.RemoveListener(UpdateLvlText);
+    }
+
+    void OnUIReload(PanelRenderer renderer, VisualElement rootElement)
+    {
+        // Your UI initialization logic.
+        _healthBar = rootElement.Q<ProgressBar>("HealthBar");
+        _expBar = rootElement.Q<ProgressBar>("ExpBar");
+        UpdateHealthBar(_player.Health.Current, _player.Health.Max);
+        UpdateExpBar(_player.Exp, _player.ExpToLvlUp(_player.Lvl));
+        UpdateLvlText(0, _player.Lvl);
+    }
+
+    void Awake()
+    {
+        _player = GameStateManager.Instance.Player;
     }
 
     void UpdateHealthBar(int current, int max) {
@@ -37,10 +43,14 @@ public class GameUIHandler : MonoBehaviour {
         _healthBar.title = $"{current}/{max}";
     }
 
-    void UpdateExpBar(int currentExp, int maxExp, int lvl )
+    void UpdateExpBar(int currentExp, int maxExp )
     {
-        _expBar.value = currentExp;
         _expBar.highValue = maxExp;
-        _expBar.title = $"Lvl: {lvl}";
+        _expBar.value = currentExp;
+    }
+
+    void UpdateLvlText(int oldLvl, int newLvl)
+    {
+        _expBar.title = $"Lvl: {newLvl}";
     }
 }

@@ -20,16 +20,16 @@ MonoBehaviour:
       IncludeAsUpgradeOption: 1
       UISprite: {fileID: 8312936430579362208, guid: ee0c57da3cd509340a3c6efd39622932, type: 3}
       name: Boomerang Damage
-      shortName: DAMAGE
+      shortName: damage
       baseValue: 25
       flatScaling: 10
     projectileCount:
       IncludeAsUpgradeOption: 1
       UISprite: {fileID: 8312936430579362208, guid: ee0c57da3cd509340a3c6efd39622932, type: 3}
       name: Boomerang Projectiles
-      shortName: PROJECTILES
+      shortName: projectiles
       baseValue: 1
-      flatScaling: 1
+      flatScaling: 3
   hitMask:
     serializedVersion: 2
     m_Bits: 0

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 
 public struct WeaponStats : IStats
 {
@@ -20,12 +21,17 @@ public struct WeaponStats : IStats
         _statLookup = new()
         {
             { data.damage.name, _damageStat },
-            { data.damage.name, _projectileCountStat }
+            { data.projectileCount.name, _projectileCountStat }
         };
     }
 
     public readonly Stat GetStat(string statName)
     {
         return _statLookup[statName];
+    }
+
+    public readonly Stat[] All()
+    {
+        return _statLookup.Values.ToArray();
     }
 }

@@ -10,11 +10,12 @@ public class Stats : MonoBehaviour
 {
     [SerializeField] SO_WeaponsConfig weaponsConfig;
     [SerializeField] SO_CharacterStatsConfig playerStatsConfig;
-    public CharacterStats CharacterStats => _characterStats;
+    public CharacterStats Character => _characterStats;
+    public Dictionary<string, WeaponStats> Weapons => _weaponsStatsLookUp;
     CharacterStats _characterStats;
     Dictionary<string, WeaponStats> _weaponsStatsLookUp;
 
-    public WeaponStats WeaponStats(string weaponName)
+    public WeaponStats Weapon(string weaponName)
     {
         bool statsExist = _weaponsStatsLookUp.TryGetValue(weaponName, out var weaponStats);
 

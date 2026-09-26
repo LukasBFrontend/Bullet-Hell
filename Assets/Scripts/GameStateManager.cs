@@ -5,7 +5,18 @@ using UnityEngine;
 public class GameStateManager : Singleton<GameStateManager>
 {
     [SerializeField] SO_WeaponsConfig weaponsConfig;
-    public Player Player => _player;
+    public Player Player
+    {
+        get
+        {
+            if (_player == null)
+            {
+                _player = FindAnyObjectByType<Player>();
+            }
+
+            return _player;
+        }
+    }
     public HashSet<SO_WeaponData> AvailableWeapons => weaponsConfig.availableWeapons.ToHashSet();
     public HashSet<SO_WeaponData> UnlockedWeapons => _unlockedWeapons;
     HashSet<SO_WeaponData> _unlockedWeapons;

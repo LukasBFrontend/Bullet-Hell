@@ -18,31 +18,33 @@ public class Player : Character
     /// Calculates total exp required to lvl up from the current lvl to the next.
     /// </summary>
     /// <returns>The exp</returns>
-    public int ExpToLvlUp()
+    public int ExpToLvlUp(int lvl)
     {
-        return 100 + _lvl * 10;
+        return 100 + (lvl - 1) * 10;
     }
 
     /// <summary>
-    /// Adds exp to the player exp and invokes LvlUp() if the updated exp is sufficient.
+    /// Adds exp to the player exp and invokes LvlUp() if the updated exp is sufficient. Cannot handle multiple level ups in the same call.
     /// </summary>
-    /// <param name="amount"></param>
+    /// <param name="amount">The experience amount to gain.</param>
     public void GainExp(int amount)
     {
-        _exp += amount;
+        int requiredExp = ExpToLvlUp(_lvl);
 
-        int requiredExp = ExpToLvlUp();
+        _exp += amount;
 
         if (_exp < requiredExp)
         {
-            GameEvents.RaiseExpChanged(_exp, requiredExp, _lvl);
+            GameEvents.RaiseExpChanged(_exp, requiredExp);
             return;
         }
         int leftover = _exp - requiredExp;
 
-        LvlUp();
         _exp = leftover;
-        GameEvents.RaiseExpChanged(_exp, requiredExp, _lvl);
+
+        LvlUp();
+        int newRequiredExp = ExpToLvlUp(_lvl);
+        GameEvents.RaiseExpChanged(_exp, newRequiredExp);
     }
 
     public override void Die()
@@ -52,6 +54,8 @@ public class Player : Character
 
     private void LvlUp()
     {
+        int oldLvl = _lvl;
         _lvl++;
+        GameEvents.RaiseLvlUpEvent(oldLvl, _lvl);
     }
 }

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 
 public struct CharacterStats: IStats
 {
@@ -34,5 +35,10 @@ public struct CharacterStats: IStats
     public readonly Stat GetStat(string statName)
     {
         return _statLookup[statName];
+    }
+
+    public readonly Stat[] All()
+    {
+        return _statLookup.Values.ToArray();
     }
 }
