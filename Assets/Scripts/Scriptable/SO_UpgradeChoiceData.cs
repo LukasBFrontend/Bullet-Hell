@@ -3,44 +3,53 @@ using Unity.Properties;
 using UnityEngine.UIElements;
 
 [System.Serializable]
-public enum UpgradeStatType
+public enum StatScalingType
 {
-    Addative,
+    Additive,
     Multiplicative,
 }
 
-public enum StatContextType
+public enum UpgradeType
 {
-    Character,
-    Weapon,
+    CharacterStat,
+    WeaponUnlock,
+    WeaponStat,
 }
 
 [CreateAssetMenu(fileName = "UpgradeChoiceData", menuName = "Runtime/UpgradeChoiceData")]
 public class SO_UpgradeOptionData : ScriptableObject
 {
     [Header("Card data")]
-    public UpgradeStatType upgradeType;
-    public StatContextType contextType;
+    public UpgradeType upgradeType;
     public Sprite sprite;
-    public string title; // Character stat name or weapon name
+    public string title;
+    public string metaDescription;
     [Header("Stat data")]
+    public StatScalingType scalingType;
     public string statname;
     public float statIncrease;
     public int lvl;
+    [Header("Default value")]
+    [SerializeField] SO_UpgradeOptionData defaultValues;
 
-    // Convert enum value to be read as booleans
+    // Scaling type (Additive / Multiplicative)
     [CreateProperty]
-    public StyleEnum<DisplayStyle> DisplayAddativeStatType => upgradeType == UpgradeStatType.Addative ? DisplayStyle.Flex : DisplayStyle.None;
+    public StyleEnum<DisplayStyle> DisplayAddativeStatType => scalingType == StatScalingType.Additive ? DisplayStyle.Flex : DisplayStyle.None;
     [CreateProperty]
-    public StyleEnum<DisplayStyle> DisplayMultiplicativeStatType => upgradeType == UpgradeStatType.Multiplicative ? DisplayStyle.Flex : DisplayStyle.None;
+    public StyleEnum<DisplayStyle> DisplayMultiplicativeStatType => scalingType == StatScalingType.Multiplicative ? DisplayStyle.Flex : DisplayStyle.None;
 
-    public void Initialize(Stat stat, StatContextType contextType)
+    // Upgrade type (Character / Weapon / WeaponUnlock)
+    public StyleEnum<DisplayStyle> DisplayCharacter => upgradeType == UpgradeType.CharacterStat ? DisplayStyle.Flex : DisplayStyle.None;
+    public StyleEnum<DisplayStyle> DisplayWeapon => upgradeType == UpgradeType.WeaponStat ? DisplayStyle.Flex : DisplayStyle.None;
+    public StyleEnum<DisplayStyle> DisplayWeaponUnlock => upgradeType == UpgradeType.WeaponUnlock ? DisplayStyle.Flex : DisplayStyle.None;
+
+    public void SetValuesCharacterStat(Stat stat)
     {
-        this.contextType = contextType;
+        upgradeType = UpgradeType.CharacterStat;
 
-        upgradeType = stat is AdditiveStat
-            ? UpgradeStatType.Addative
-            : UpgradeStatType.Multiplicative
+        scalingType = stat is AdditiveStat
+            ? StatScalingType.Additive
+            : StatScalingType.Multiplicative
         ;
 
         sprite = stat.Sprite;
@@ -50,13 +59,21 @@ public class SO_UpgradeOptionData : ScriptableObject
         lvl = stat.Lvl + 1;
     }
 
-    public void Initialize(Stat stat, StatContextType contextType, string weaponName)
+    public void SetValuesWeaponUnlock(string weaponName)
     {
-        this.contextType = contextType;
+        upgradeType = UpgradeType.WeaponUnlock;
 
-        upgradeType = stat is AdditiveStat
-            ? UpgradeStatType.Addative
-            : UpgradeStatType.Multiplicative
+        title = weaponName;
+        lvl = 1;
+    }
+
+    public void SetValuesWeaponStat(string weaponName, Stat stat)
+    {
+        upgradeType = UpgradeType.WeaponStat;
+
+        scalingType = stat is AdditiveStat
+            ? StatScalingType.Additive
+            : StatScalingType.Multiplicative
         ;
 
         sprite = stat.Sprite;
@@ -65,18 +82,4 @@ public class SO_UpgradeOptionData : ScriptableObject
         statIncrease = stat.PerLevelIncrease;
         lvl = stat.Lvl + 1;
     }
-
-    public void Assign(SO_UpgradeOptionData instance)
-    {
-        contextType = instance.contextType;
-        upgradeType = instance.upgradeType;
-        sprite = instance.sprite;
-        title = instance.title;
-        statname = instance.statname;
-        statIncrease = instance.statIncrease;
-        lvl = instance.lvl;
-    }
-
-
-
 }

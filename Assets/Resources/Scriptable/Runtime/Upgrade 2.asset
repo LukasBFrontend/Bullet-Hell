@@ -10,12 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 99370e65974d8f34e91a37d414ee08c7, type: 3}
-  m_Name: UpgradeTwo
+  m_Name: Upgrade 2
   m_EditorClassIdentifier: Assembly-CSharp::UpgradeChoiceData
-  upgradeType: 0
-  contextType: 0
+  upgradeType: 2
   sprite: {fileID: 8312936430579362208, guid: ee0c57da3cd509340a3c6efd39622932, type: 3}
-  title: Upgrade Option 2
-  statname: '[statname]'
-  statIncrease: 10
+  title: Sword
+  metaDescription: '[A description of the weapon/stat]'
+  scalingType: 0
+  statname: damage
+  statIncrease: 1
   lvl: 1
+  defaultValues: {fileID: 11400000, guid: 7a6d49491258bb146a753dff596c6a7a, type: 2}

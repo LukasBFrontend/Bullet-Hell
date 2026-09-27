@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class GameUIHandler : MonoBehaviour {
+public class UIHandler : MonoBehaviour {
     [SerializeField] PanelRenderer panelRenderer;
     ProgressBar _healthBar, _expBar;
     Player _player;

@@ -10,12 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 99370e65974d8f34e91a37d414ee08c7, type: 3}
-  m_Name: UpgradeThree
+  m_Name: Upgrade 1
   m_EditorClassIdentifier: Assembly-CSharp::UpgradeChoiceData
   upgradeType: 0
-  contextType: 0
-  sprite: {fileID: 8312936430579362208, guid: ee0c57da3cd509340a3c6efd39622932, type: 3}
-  title: Upgrade Option 3
-  statname: '[statname]'
-  statIncrease: 10
+  sprite: {fileID: 5565177215636927096, guid: d685d557f6d0acb438671c8190166dfa, type: 3}
+  title: Attack Speed
+  metaDescription: '[A description of the weapon/stat]'
+  scalingType: 1
+  statname: attack speed
+  statIncrease: 5
   lvl: 1
+  defaultValues: {fileID: 11400000, guid: 7a6d49491258bb146a753dff596c6a7a, type: 2}

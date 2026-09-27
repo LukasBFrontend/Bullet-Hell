@@ -7,7 +7,7 @@ public class UpgradeOptionManager : Singleton<UpgradeOptionManager>
     [SerializeField] SO_UpgradeOptionData optionOneData;
     [SerializeField] SO_UpgradeOptionData optionTwoData;
     [SerializeField] SO_UpgradeOptionData optionThreeData;
-    List<SO_UpgradeOptionData> _currentOptions = new();
+    List<UpgradeOption> _currentOptions = new();
 
     public void AssignRandom()
     {
@@ -19,9 +19,14 @@ public class UpgradeOptionManager : Singleton<UpgradeOptionManager>
             .ToArray()
         ;
 
-        optionOneData.Assign(_currentOptions[numbers[0]]);
-        optionTwoData.Assign(_currentOptions[numbers[1]]);
-        optionThreeData.Assign(_currentOptions[numbers[2]]);
+        _currentOptions[numbers[0]].AssignTo(optionOneData);
+        _currentOptions[numbers[1]].AssignTo(optionTwoData);
+        _currentOptions[numbers[2]].AssignTo(optionThreeData);
+    }
+
+    void Start()
+    {
+        AssignRandom();
     }
 
     void RefreshOptions()
@@ -37,22 +42,13 @@ public class UpgradeOptionManager : Singleton<UpgradeOptionManager>
             // If weapon is lvl 0 create weapon unlock option and continue
             foreach (var stat in weaponStats.All())
             {
-                var option = (SO_UpgradeOptionData)ScriptableObject.CreateInstance(typeof (SO_UpgradeOptionData));
-                option.Initialize(stat, StatContextType.Weapon, weaponName);
-                _currentOptions.Add(option);
+                _currentOptions.Add(new WeaponStatOption(weaponName, stat));
             }
         }
 
         foreach (var stat in characterStats)
         {
-            var option = (SO_UpgradeOptionData)ScriptableObject.CreateInstance(typeof (SO_UpgradeOptionData));
-            option.Initialize(stat, StatContextType.Character);
-            _currentOptions.Add(option);
+            _currentOptions.Add(new CharacterStatOption(stat));
         }
-    }
-
-    void Start()
-    {
-        AssignRandom();
     }
 }

@@ -447,7 +447,7 @@ GameObject:
   - component: {fileID: 243217043}
   - component: {fileID: 243217044}
   m_Layer: 5
-  m_Name: GameUI
+  m_Name: UI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6361,9 +6361,9 @@ SceneRoots:
   m_Roots:
   - {fileID: 519420032}
   - {fileID: 619394802}
-  - {fileID: 243217042}
   - {fileID: 972195815}
   - {fileID: 234671256}
+  - {fileID: 243217042}
   - {fileID: 193668079}
   - {fileID: 47205275}
   - {fileID: 262892257}
