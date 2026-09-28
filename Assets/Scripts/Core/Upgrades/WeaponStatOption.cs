@@ -13,6 +13,13 @@ public class WeaponStatOption : UpgradeOption
 
     public override void AssignTo(SO_UpgradeOptionData data)
     {
-        data.SetValuesWeaponStat(WeaponName, _stat);
+        data.SetValues(this);
+    }
+
+    public override void Select()
+    {
+        Player player = GameStateManager.Instance.Player;
+        WeaponStats weaponStats = player.Stats.GetWeapon(_weaponName);
+        Stat stat = weaponStats.GetStat(_stat.Name);
     }
 }

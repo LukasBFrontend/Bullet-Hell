@@ -10,6 +10,13 @@ public class CharacterStatOption : UpgradeOption
 
     public override void AssignTo(SO_UpgradeOptionData data)
     {
-        data.SetValuesCharacterStat(_stat);
+        data.SetValues(this);
+    }
+
+    public override void Select()
+    {
+        Player player = GameStateManager.Instance.Player;
+        Stat stat = player.Stats.Character.GetStat(_stat.Name);
+        stat.LevelUp();
     }
 }

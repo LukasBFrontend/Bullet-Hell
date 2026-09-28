@@ -15,7 +15,7 @@ public class Stats : MonoBehaviour
     CharacterStats _characterStats;
     Dictionary<string, WeaponStats> _weaponsStatsLookUp;
 
-    public WeaponStats Weapon(string weaponName)
+    public WeaponStats GetWeapon(string weaponName)
     {
         bool statsExist = _weaponsStatsLookUp.TryGetValue(weaponName, out var weaponStats);
 

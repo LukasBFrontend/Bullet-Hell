@@ -10,6 +10,11 @@ public class WeaponUnlockOption : UpgradeOption
 
     public override void AssignTo(SO_UpgradeOptionData data)
     {
-        data.SetValuesWeaponUnlock(_weaponName);
+        data.SetValues(this);
+    }
+
+    public override void Select()
+    {
+        GameStateManager.Instance.UnlockWeapon(WeaponName);
     }
 }

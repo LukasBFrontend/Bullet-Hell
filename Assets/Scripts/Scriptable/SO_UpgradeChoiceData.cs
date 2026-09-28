@@ -31,6 +31,7 @@ public class SO_UpgradeOptionData : ScriptableObject
     public int lvl;
     [Header("Default value")]
     [SerializeField] SO_UpgradeOptionData defaultValues;
+    UpgradeOption _upgradeOptionRef;
 
     // Scaling type (Additive / Multiplicative)
     [CreateProperty]
@@ -43,9 +44,12 @@ public class SO_UpgradeOptionData : ScriptableObject
     public StyleEnum<DisplayStyle> DisplayWeapon => upgradeType == UpgradeType.WeaponStat ? DisplayStyle.Flex : DisplayStyle.None;
     public StyleEnum<DisplayStyle> DisplayWeaponUnlock => upgradeType == UpgradeType.WeaponUnlock ? DisplayStyle.Flex : DisplayStyle.None;
 
-    public void SetValuesCharacterStat(Stat stat)
+    public void SetValues(CharacterStatOption optionRef)
     {
         upgradeType = UpgradeType.CharacterStat;
+
+        _upgradeOptionRef = optionRef;
+        Stat stat = optionRef.Stat;
 
         scalingType = stat is AdditiveStat
             ? StatScalingType.Additive
@@ -59,17 +63,22 @@ public class SO_UpgradeOptionData : ScriptableObject
         lvl = stat.Lvl + 1;
     }
 
-    public void SetValuesWeaponUnlock(string weaponName)
+    public void SetValues(WeaponUnlockOption optionRef)
     {
-        upgradeType = UpgradeType.WeaponUnlock;
+        _upgradeOptionRef = optionRef;
 
-        title = weaponName;
+        upgradeType = UpgradeType.WeaponUnlock;
+        title = optionRef.WeaponName;
         lvl = 1;
     }
 
-    public void SetValuesWeaponStat(string weaponName, Stat stat)
+    public void SetValues(WeaponStatOption optionRef)
     {
+        _upgradeOptionRef = optionRef;
+
         upgradeType = UpgradeType.WeaponStat;
+        title = optionRef.WeaponName;
+        Stat stat = optionRef.Stat;
 
         scalingType = stat is AdditiveStat
             ? StatScalingType.Additive
@@ -77,9 +86,13 @@ public class SO_UpgradeOptionData : ScriptableObject
         ;
 
         sprite = stat.Sprite;
-        title = weaponName;
         statname = stat.ShortName;
         statIncrease = stat.PerLevelIncrease;
         lvl = stat.Lvl + 1;
+    }
+
+    public void Select()
+    {
+        _upgradeOptionRef.Select();
     }
 }
