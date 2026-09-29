@@ -36,7 +36,5 @@ public class Stats : MonoBehaviour
         ).ToArray();
 
         _weaponsStatsLookUp = weaponStats.ToDictionary(stats => stats.WeaponName);
-
-        _characterStats.DamageMultiplier.LevelUp();
     }
 }

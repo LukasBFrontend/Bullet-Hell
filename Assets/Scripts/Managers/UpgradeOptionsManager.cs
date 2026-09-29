@@ -9,13 +9,12 @@ public class UpgradeOptionManager : Singleton<UpgradeOptionManager>
     [SerializeField] SO_UpgradeOptionData optionThreeData;
     List<UpgradeOption> _currentOptions = new();
 
-
     public void AssignRandom()
     {
         RefreshOptions();
 
         var numbers = Enumerable.Range(0, _currentOptions.Count)
-            .OrderBy(_ => UnityEngine.Random.value)
+            .OrderBy(_ => Random.value)
             .Take(3)
             .ToArray()
         ;
@@ -27,27 +26,27 @@ public class UpgradeOptionManager : Singleton<UpgradeOptionManager>
 
     public void SelectOptionOne()
     {
-        _currentOptions[0].Select();
+        optionOneData.Select();
     }
 
     public void SelectOptionTwo()
     {
-        _currentOptions[1].Select();
+        optionTwoData.Select();
     }
 
     public void SelectOptionThree()
     {
-        _currentOptions[2].Select();
+        optionThreeData.Select();
     }
 
     void Start()
     {
-        AssignRandom();
+        //AssignRandom();
     }
 
     void RefreshOptions()
     {
-        Player player = GameStateManager.Instance.Player;
+        Player player = Player.Instance;
 
         _currentOptions.Clear();
         var characterStats = player.Stats.Character.All();

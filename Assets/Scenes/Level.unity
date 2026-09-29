@@ -133,8 +133,8 @@ GameObject:
   - component: {fileID: 47205272}
   - component: {fileID: 47205277}
   - component: {fileID: 47205281}
-  - component: {fileID: 47205276}
   - component: {fileID: 47205278}
+  - component: {fileID: 47205276}
   - component: {fileID: 47205280}
   m_Layer: 0
   m_Name: Player
@@ -311,6 +311,7 @@ MonoBehaviour:
   collider: {fileID: 47205273}
   health: {fileID: 47205280}
   stats: {fileID: 47205281}
+  weapons: {fileID: 47205278}
 --- !u!114 &47205278
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -323,8 +324,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8840a17c869db64b8de3fd9c6d19e5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerWeaponSelector
+  weaponsConfig: {fileID: 11400000, guid: abf4f742dc4f76b498a4308f1f7c3aed, type: 2}
   weaponParent: {fileID: 47205275}
-  availableWeapons: []
 --- !u!114 &47205280
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5739,7 +5740,7 @@ GameObject:
   - component: {fileID: 972195815}
   - component: {fileID: 972195816}
   m_Layer: 0
-  m_Name: GameStateManager
+  m_Name: StateMachine
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5769,10 +5770,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 972195813}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d125cf9ea103bf04dbf42432b4a2baa7, type: 3}
+  m_Script: {fileID: 11500000, guid: 5200fab10a5f97648b080ac74096c3a0, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::GameStateManager
-  weaponsConfig: {fileID: 11400000, guid: abf4f742dc4f76b498a4308f1f7c3aed, type: 2}
+  m_EditorClassIdentifier: Assembly-CSharp::StateMachine
+  logNewStateOnEnter: 1
 --- !u!4 &978370005 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1945014466457025264, guid: 38699aaf36f7af44696a2485c056c923, type: 3}

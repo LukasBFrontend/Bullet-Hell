@@ -5,10 +5,14 @@ using UnityEngine.SceneManagement;
 /// The main player component.
 /// </summary>
 [RequireComponent(typeof(Stats))]
-public class Player : Character
+public class Player : BaseCharacter
 {
     [SerializeField] Stats stats;
+    [SerializeField] Weapons weapons;
+    public static Player Instance;
     public Stats Stats => stats;
+    public Weapons Weapons => weapons;
+    static Player _instance;
     public int Lvl => _lvl;
     public int Exp => _exp;
     int _lvl = 1;
@@ -57,5 +61,16 @@ public class Player : Character
         int oldLvl = _lvl;
         _lvl++;
         GameEvents.RaiseLvlUpEvent(oldLvl, _lvl);
+    }
+
+    void Awake()
+    {
+        if (_instance != null && _instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        _instance = this;
     }
 }

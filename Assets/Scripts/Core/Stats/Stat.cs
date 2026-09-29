@@ -19,8 +19,10 @@ public abstract class Stat
     /// <returns>The new lvl.</returns>
     public int LevelUp()
     {
-        return _lvl++;
+        return _lvl += 1;
     }
+
+    public abstract float Evaluate();
 
 }
 
@@ -33,11 +35,11 @@ public class AdditiveStat : Stat
     /// Stat increase, starting at 0 at lvl 1.
     /// </summary>
     public float BaseValue => _baseValue;
-    public float Value => _baseValue + NetIncrease();
     private float _baseValue;
 
     public AdditiveStat(AdditiveStatData statData)
     {
+        _lvl = 0;
         _sprite = statData.UISprite;
         _name = statData.name;
         _shortName = statData.shortName;
@@ -45,9 +47,9 @@ public class AdditiveStat : Stat
         _perLevelIncrease = statData.flatScaling;
     }
 
-    public float NetIncrease()
+    public override float Evaluate()
     {
-        return  _lvl * _perLevelIncrease;
+        return  _baseValue + (_lvl + 1) * _perLevelIncrease;
     }
 }
 
@@ -56,20 +58,22 @@ public class AdditiveStat : Stat
 /// </summary>
 public sealed class MultiplicativeStat : Stat
 {
-    /// <summary>
-    /// Stat multiplier, starting at 1f at lvl 1.
-    /// </summary>
-    public float MultiplierValue => EvaluateMultiplicativeStat(Lvl, _perLevelIncrease);
+
 
     public MultiplicativeStat(MultiplicativeStatData statData)
     {
+        _lvl = 0;
         _sprite = statData.UISprite;
         _name = statData.name;
         _shortName = statData.shortName;
         _perLevelIncrease = statData.multiplierScaling;
     }
-    private float EvaluateMultiplicativeStat(int lvl, float percentMultiplierIncrease)
+
+    /// <summary>
+    /// Stat multiplier, starting at 1f at lvl 1.
+    /// </summary>
+    public override float Evaluate()
     {
-        return 1f + ((lvl - 1) * percentMultiplierIncrease / 100f);
+        return 1f + (Lvl * _perLevelIncrease / 100f);
     }
 }

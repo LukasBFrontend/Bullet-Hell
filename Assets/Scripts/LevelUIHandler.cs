@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class UIHandler : MonoBehaviour {
+public class LevelUIHandler : MonoBehaviour {
     [SerializeField] PanelRenderer panelRenderer;
     ProgressBar _healthBar, _expBar;
     Player _player;
@@ -34,7 +34,7 @@ public class UIHandler : MonoBehaviour {
 
     void Awake()
     {
-        _player = GameStateManager.Instance.Player;
+        _player = Player.Instance;
     }
 
     void UpdateHealthBar(int current, int max) {

@@ -5,9 +5,9 @@
     <ui:ProgressBar value="100" title="Lvl 1" name="ExpBar"/>
     <ui:VisualElement name="OverlayContainer" class="overlayContainer" style="justify-content: center; align-items: center;">
         <ui:VisualElement name="UpgradeMenu" style="flex-grow: 0; margin-top: 8px; margin-right: 8px; margin-bottom: 8px; margin-left: 8px; position: absolute; display: flex;">
-            <ui:Instance template="UpgradeButton" name="UpgradeButton1" data-source="project://database/Assets/Resources/Scriptable/Runtime/UpgradeOne.asset?fileID=11400000&amp;guid=f5ef43c874b823f4cb40e8d76d048b0a&amp;type=2#UpgradeOne"/>
-            <ui:Instance template="UpgradeButton" name="UpgradeButton2" data-source="project://database/Assets/Resources/Scriptable/Runtime/UpgradeTwo.asset?fileID=11400000&amp;guid=caa74c8aef6f23348973d39589b4fbd3&amp;type=2#UpgradeTwo"/>
-            <ui:Instance template="UpgradeButton" name="UpgradeButton3" data-source="project://database/Assets/Resources/Scriptable/Runtime/UpgradeThree.asset?fileID=11400000&amp;guid=6bf788f0c4930c04bb1a355c9982b094&amp;type=2#UpgradeThree"/>
+            <ui:Instance template="UpgradeButton" name="UpgradeButtonOne" data-source="project://database/Assets/Resources/Scriptable/Runtime/Upgrade%201.asset?fileID=11400000&amp;guid=f5ef43c874b823f4cb40e8d76d048b0a&amp;type=2#Upgrade 1"/>
+            <ui:Instance template="UpgradeButton" name="UpgradeButtonTwo" data-source="project://database/Assets/Resources/Scriptable/Runtime/Upgrade%202.asset?fileID=11400000&amp;guid=caa74c8aef6f23348973d39589b4fbd3&amp;type=2#Upgrade 2"/>
+            <ui:Instance template="UpgradeButton" name="UpgradeButtonThree" data-source="project://database/Assets/Resources/Scriptable/Runtime/Upgrade%203.asset?fileID=11400000&amp;guid=6bf788f0c4930c04bb1a355c9982b094&amp;type=2#Upgrade 3"/>
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

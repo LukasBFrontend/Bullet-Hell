@@ -10,7 +10,7 @@ public class Projectile : MonoBehaviour
     [SerializeField] ProjectileTargetTracker targetTracker;
     [SerializeField] SO_ProjectileData projectileData;
 
-    public void Initialize(Character target)
+    public void Initialize(BaseCharacter target)
     {
         switch (projectileData.arcMode)
         {
@@ -26,7 +26,7 @@ public class Projectile : MonoBehaviour
         }
     }
 
-    IEnumerator FollowSimpleRoutine(Character target)
+    IEnumerator FollowSimpleRoutine(BaseCharacter target)
     {
         while (Vector2.Distance(target.transform.position, transform.position) > projectileData.targetReachedThreshold)
         {
@@ -34,12 +34,12 @@ public class Projectile : MonoBehaviour
             yield return null;
         }
     }
-    IEnumerator BoomerangRoutine(Character initialTarget)
+    IEnumerator BoomerangRoutine(BaseCharacter initialTarget)
     {
         throw new NotImplementedException();
     }
 
-    IEnumerator BounceRoutine(Character target)
+    IEnumerator BounceRoutine(BaseCharacter target)
     {
         throw new NotImplementedException();
     }

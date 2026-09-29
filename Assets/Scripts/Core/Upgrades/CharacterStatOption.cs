@@ -1,3 +1,5 @@
+using UnityEngine;
+
 public class CharacterStatOption : UpgradeOption
 {
     public Stat Stat => _stat;
@@ -15,8 +17,8 @@ public class CharacterStatOption : UpgradeOption
 
     public override void Select()
     {
-        Player player = GameStateManager.Instance.Player;
+        Player player = Player.Instance;
         Stat stat = player.Stats.Character.GetStat(_stat.Name);
-        stat.LevelUp();
+        Debug.Log($"Stat '{stat.Name}' leveled up to {stat.LevelUp()}. New value: {stat.Evaluate()}");
     }
 }

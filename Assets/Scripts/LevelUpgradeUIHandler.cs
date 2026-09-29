@@ -1,30 +1,33 @@
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class UIUpgradeHandler : MonoBehaviour {
+public class LevelUpgradeUIHandler : MonoBehaviour {
     [SerializeField] PanelRenderer panelRenderer;
     Button _upgradeButtonOne, _upgradeButtonTwo, _upgradeButtonThree;
 
     void OnEnable()
     {
         panelRenderer.RegisterUIReloadCallback(OnUIReload);
-        _upgradeButtonOne.clicked += OnUpgradeButtonOneClick;
-        _upgradeButtonTwo.clicked += OnUpgradeButtonTwoClick;
-        _upgradeButtonThree.clicked += OnUpgradeButtonThreeClick;
     }
 
     void OnDisable()
     {
         panelRenderer.UnregisterUIReloadCallback(OnUIReload);
+        _upgradeButtonOne.clicked -= OnUpgradeButtonOneClick;
+        _upgradeButtonTwo.clicked -= OnUpgradeButtonTwoClick;
+        _upgradeButtonThree.clicked -= OnUpgradeButtonThreeClick;
     }
 
     void OnUIReload(PanelRenderer renderer, VisualElement rootElement)
     {
-        // Get buttons
-        _upgradeButtonOne = rootElement.Q<Button>("UpgradeButton1");
-        _upgradeButtonTwo = rootElement.Q<Button>("UpgradeButton2");
-        _upgradeButtonThree = rootElement.Q<Button>("UpgradeButton3");
-        
+        _upgradeButtonOne = rootElement.Q<TemplateContainer>("UpgradeButtonOne").Q<Button>();
+        _upgradeButtonTwo = rootElement.Q<TemplateContainer>("UpgradeButtonTwo").Q<Button>();
+        _upgradeButtonThree = rootElement.Q<TemplateContainer>("UpgradeButtonThree").Q<Button>();
+
+        _upgradeButtonOne.clicked += OnUpgradeButtonOneClick;
+        _upgradeButtonTwo.clicked += OnUpgradeButtonTwoClick;
+        _upgradeButtonThree.clicked += OnUpgradeButtonThreeClick;
     }
 
     void OnUpgradeButtonOneClick()

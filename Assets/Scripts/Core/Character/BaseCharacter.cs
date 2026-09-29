@@ -3,7 +3,7 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(Collider2D))]
 [RequireComponent(typeof(Health))]
-public abstract class Character : MonoBehaviour
+public abstract class BaseCharacter : MonoBehaviour
 {
     [SerializeField] Rigidbody2D rigidbody;
     [SerializeField] Collider2D collider;

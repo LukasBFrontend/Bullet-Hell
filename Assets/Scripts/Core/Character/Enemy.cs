@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public sealed class Enemy : Character
+public sealed class Enemy : BaseCharacter
 {
     private static WaitForSeconds _waitForSeconds_5 = new(.5f);
     [Tooltip("How much damage does the enemy deal on player collision?")]

@@ -18,7 +18,7 @@ public class BeeController : MonoBehaviour
 
     void Update()
     {
-        Vector2 dir = GameUtils.PlayerToEnemyDir(GameStateManager.Instance.Player, _enemy);
+        Vector2 dir = GameUtils.PlayerToEnemyDir(Player.Instance, _enemy);
 
         _rigidbody.linearVelocity = dir * moveSpeed;
     }

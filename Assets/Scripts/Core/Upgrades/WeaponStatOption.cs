@@ -1,3 +1,5 @@
+using UnityEngine;
+
 public class WeaponStatOption : UpgradeOption
 {
     public string WeaponName => _weaponName;
@@ -18,8 +20,9 @@ public class WeaponStatOption : UpgradeOption
 
     public override void Select()
     {
-        Player player = GameStateManager.Instance.Player;
+        Player player = Player.Instance;
         WeaponStats weaponStats = player.Stats.GetWeapon(_weaponName);
         Stat stat = weaponStats.GetStat(_stat.Name);
+        Debug.Log($"Stat '{stat.Name}' leveled up to {stat.LevelUp()}. New value: {stat.Evaluate()}");
     }
 }

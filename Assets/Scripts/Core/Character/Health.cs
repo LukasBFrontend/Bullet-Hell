@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using System;
 
-[RequireComponent(typeof (Character))]
+[RequireComponent(typeof (BaseCharacter))]
 public class Health : MonoBehaviour
 {
     [Range(0, 100)]
@@ -10,14 +10,14 @@ public class Health : MonoBehaviour
     public int Current => health;
     public int Max => _maxHealth;
     int _maxHealth;
-    Character _character;
+    BaseCharacter _character;
 
     void Awake()
     {
         _maxHealth = health;
-        _character = GetComponent<Character>();
+        _character = GetComponent<BaseCharacter>();
     }
- 
+
     /// <summary>
     /// Subtracts amount from the character health. If it reaches zero, invokes Die().
     /// </summary>

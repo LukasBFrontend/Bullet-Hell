@@ -13,7 +13,7 @@ public class WeaponTargetTracker : MonoBehaviour
 
     private void Update()
     {
-        Vector2 closestDir = GameUtils.ClosestEnemyToPlayerDir(GameStateManager.Instance.Player);
+        Vector2 closestDir = GameUtils.ClosestEnemyToPlayerDir(Player.Instance);
         transform.rotation = Quaternion.Euler(new (0, 0, Mathf.Rad2Deg * Mathf.Atan2(closestDir.y, closestDir.x )));
     }
 
