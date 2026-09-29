@@ -21,11 +21,6 @@ public class StateMachine : Singleton<StateMachine>
         _currentState.EnterState();
     }
 
-    void Start()
-    {
-        GameEvents.RaiseLevelQuit();
-    }
-
     void Update()
     {
         _currentState.UpdateStates();

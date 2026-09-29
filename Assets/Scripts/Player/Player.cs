@@ -9,14 +9,16 @@ public class Player : BaseCharacter
 {
     [SerializeField] Stats stats;
     [SerializeField] Weapons weapons;
-    public static Player Instance;
+    [SerializeField] Movement movement;
     public Stats Stats => stats;
     public Weapons Weapons => weapons;
-    static Player _instance;
+    public Movement Movement => movement;
+    public static Player Instance => _instance;
     public int Lvl => _lvl;
     public int Exp => _exp;
     int _lvl = 1;
     int _exp = 0;
+    static Player _instance;
 
     /// <summary>
     /// Calculates total exp required to lvl up from the current lvl to the next.

@@ -27,28 +27,48 @@ public class Health : MonoBehaviour
         health -= amount;
         health = Mathf.Clamp(health, 0, _maxHealth);
 
+        if (_character is Player)
+        {
+            GameEvents.RaiseHealthChanged(health, _maxHealth);
+        }
+
         if (health <= 0)
         {
             _character.Die();
         }
 
-        if (_character is Player)
-        {
-            GameEvents.RaiseHealthChanged(health, _maxHealth);
-        }
     }
 
     /// <summary>
     /// Adds amount to character health up to MaxHealth
     /// </summary>
     /// <param name="amount"></param>
-    public void Heal(int amount)
+    void Heal(int amount)
     {
+        if (amount <= 0)
+        {
+            Debug.LogWarning($"Tried invoking method <b><color=white>{nameof(Heal)}()</color></b> of <b>{name}</b> with a non-positive value.");
+            return;
+        }
+
         health = Mathf.Clamp(health + amount, 0, _maxHealth);
     }
 
-    public void ResetHealth()
+    /// <summary>
+    /// Sets the
+    /// </summary>
+    /// <param name="maxHealth"></param>
+    public void SetMaxHealth(int maxHealth)
     {
-        health = _maxHealth;
+        if (maxHealth <= _maxHealth)
+        {
+            Debug.LogWarning($"Tried invoking method <b><color=white>{nameof(Heal)}()</color></b> of <b>{name}</b> with value = {maxHealth} which is lower than current MaxHealth = {_maxHealth}.");
+            return;
+        }
+
+        int difference = maxHealth - _maxHealth;
+        _maxHealth = maxHealth;
+
+        Heal(difference);
     }
 }

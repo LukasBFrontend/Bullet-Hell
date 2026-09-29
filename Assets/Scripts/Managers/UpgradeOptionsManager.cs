@@ -41,16 +41,15 @@ public class UpgradeOptionManager : Singleton<UpgradeOptionManager>
 
     void Start()
     {
-        //AssignRandom();
+        AssignRandom();
     }
 
     void RefreshOptions()
     {
-        Player player = Player.Instance;
-
         _currentOptions.Clear();
-        var characterStats = player.Stats.Character.All();
-        var weaponsStats = player.Stats.Weapons;
+
+        var characterStats = Player.Instance.Stats.Character.All();
+        var weaponsStats = Player.Instance.Stats.Weapons;
 
         foreach (var (weaponName, weaponStats) in weaponsStats)
         {

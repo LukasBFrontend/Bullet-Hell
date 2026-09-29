@@ -134,8 +134,8 @@ GameObject:
   - component: {fileID: 47205277}
   - component: {fileID: 47205281}
   - component: {fileID: 47205278}
-  - component: {fileID: 47205276}
   - component: {fileID: 47205280}
+  - component: {fileID: 47205282}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -281,20 +281,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &47205276
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 47205271}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e1109cc6ae470a64d9691d4deea79209, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerController
-  move: {fileID: -1680190386980627800, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
-  baseMoveSpeed: 3
 --- !u!114 &47205277
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -312,6 +298,7 @@ MonoBehaviour:
   health: {fileID: 47205280}
   stats: {fileID: 47205281}
   weapons: {fileID: 47205278}
+  movement: {fileID: 47205282}
 --- !u!114 &47205278
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -353,6 +340,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerStats
   weaponsConfig: {fileID: 11400000, guid: abf4f742dc4f76b498a4308f1f7c3aed, type: 2}
   playerStatsConfig: {fileID: 11400000, guid: a688186909ac7ec4e8af726234e7d3d8, type: 2}
+--- !u!114 &47205282
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 47205271}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0dac2f41cf2289244a1cf8412594c044, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Movement
+  baseMoveSpeed: 10
 --- !u!4 &101938038 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3398660363873368943, guid: 963ef0ab57daeb246961f88068772fa2, type: 3}
@@ -5740,7 +5740,7 @@ GameObject:
   - component: {fileID: 972195815}
   - component: {fileID: 972195816}
   m_Layer: 0
-  m_Name: StateMachine
+  m_Name: Game State
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6003,6 +6003,52 @@ Transform:
   - {fileID: 7898060253095762276}
   - {fileID: 1880306420}
   - {fileID: 1869150265}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1705198978
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1705198980}
+  - component: {fileID: 1705198979}
+  m_Layer: 0
+  m_Name: Input
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1705198979
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1705198978}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8e77916904ed7f4bbcbfc32d2d67e2d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GameInputActions
+  move: {fileID: -1680190386980627800, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
+  togglePause: {fileID: 0}
+--- !u!4 &1705198980
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1705198978}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1809973162
@@ -6425,9 +6471,10 @@ SceneRoots:
   m_Roots:
   - {fileID: 519420032}
   - {fileID: 619394802}
+  - {fileID: 243217042}
+  - {fileID: 1705198980}
   - {fileID: 972195815}
   - {fileID: 234671256}
-  - {fileID: 243217042}
   - {fileID: 193668079}
   - {fileID: 47205275}
   - {fileID: 262892257}
